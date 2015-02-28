@@ -3,27 +3,49 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-
-class Adder implements ListMapper{
-	public int increment(int ele){
+class Adder implements ListMapper<Integer>{
+	public Integer callback(Integer ele){
 		return ele + 2;
 	}
 }
 
+class Multiply implements ListMapper<Double>{
+	public Double callback(Double element){
+		return element * 2.5;
+	}
+}
+
+class convertString implements ListMapper<String>{
+	public String callback(String element){
+		return "Hello";
+	}
+}
+
 public class VersionTest{
+	private static final double DELTA = 1e-15;
 
 	@Test
 	public void add_2_in_each_element_of_mapList(){
 		List<Integer> list = new ArrayList<Integer>();
-		for(int i=1;i<=5;i++){
-			list.add(i);
-		}
-
-		ListMapper l = new Adder();		
-		List<Integer> newlist = CollectionUtils.map(list,l);
-		int newElement = newlist.get(0);
-		int newElement1 = newlist.get(4);
-		assertEquals(newElement,3);
-		assertEquals(newElement1,7);
+		for(int i=1;i<=5;i++){ list.add(i);}
+		List<Integer> newlist = CollectionUtils.map(list,new Adder());
+		assertEquals((int)newlist.get(0),3);
+		assertEquals((int)newlist.get(4),7);
+	}
+	@Test
+	public void multiply_2_point_5_in_each_element_of_mapList(){
+		List<Double> list = new ArrayList<Double>();
+		list.add(2.0);
+		list.add(5.5);
+		List<Double> newlist = CollectionUtils.map(list,new Multiply());
+		assertEquals((double)newlist.get(0),5.0,DELTA);
+		assertEquals((double)newlist.get(1),13.75,DELTA);
+	}
+	@Test
+	public void convert_string_to_anotherString_of_mapList(){
+		List<String> list = new ArrayList<String>();
+		list.add("Dolly");
+		List<String> newlist = CollectionUtils.map(list,new convertString());
+		assertEquals((String)newlist.get(0),"Hello");
 	}
 }

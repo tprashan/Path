@@ -1,15 +1,15 @@
 import java.util.*;
 
-interface ListMapper{
-	public int increment(int ele);
+interface ListMapper<E>{
+	public E callback(E ele);
 }
 
 public class CollectionUtils{
 	
-	public static List<Integer> map(List<Integer> list, ListMapper fun){
-		List<Integer> myList = new ArrayList<Integer>();
-		for (Integer i: list) {
-			myList.add((int)fun.increment(i));
+	public static<E> List<E> map(List<E> list, ListMapper fun){
+		List<E> myList = new ArrayList<E>();
+		for (E i: list) {
+			myList.add((E)fun.callback(i));
 		}
 		return myList;
 	}
