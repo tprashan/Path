@@ -8,6 +8,10 @@ interface ListFilter<E>{
 	public Boolean filterCallback(E ele);
 }
 
+interface ListReducer<E,K>{
+	public K reduceCallback(K ele,E element);
+}
+
 public class CollectionUtils{
 	
 	public static<E,K> List<K> map(List<E> list, ListMapper<E,K> method){
@@ -25,5 +29,12 @@ public class CollectionUtils{
 				myList.add(i);
 		}
 		return myList;
+	} 
+
+	public static<E,K> K reduce(List<E> list, ListReducer<E,K> method, K initial){
+		for (E i : list) {
+			initial = method.reduceCallback(initial,i);
+		}
+		return initial;
 	} 
 }
