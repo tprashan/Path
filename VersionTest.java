@@ -3,19 +3,25 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-class Adder implements ListMapper<Integer>{
+class Adder implements ListMapper<Integer,Integer>{
 	public Integer callback(Integer ele){
 		return ele + 2;
 	}
 }
 
-class Multiply implements ListMapper<Double>{
+class convertIntToString implements ListMapper<Integer,String>{
+	public String callback(Integer ele){
+		return ele + "";
+	}
+}
+
+class Multiply implements ListMapper<Double,Double>{
 	public Double callback(Double element){
 		return element * 2.5;
 	}
 }
 
-class convertString implements ListMapper<String>{
+class convertString implements ListMapper<String,String>{
 	public String callback(String element){
 		return "Hello";
 	}
@@ -49,6 +55,14 @@ public class VersionTest{
 		List<Integer> newlist = CollectionUtils.map(list,new Adder());
 		assertEquals((int)newlist.get(0),3);
 		assertEquals((int)newlist.get(4),7);
+	}
+	@Test
+	public void convert_integer_to_string_each_element_of_mapList(){
+		List<Integer> list = new ArrayList<Integer>();
+		for(int i=1;i<=5;i++){ list.add(i);}
+		List<String> newlist = CollectionUtils.map(list,new convertIntToString());
+		assertEquals((String)newlist.get(0),"1");
+		assertEquals((String)newlist.get(4),"5");
 	}
 	@Test
 	public void multiply_2_point_5_in_each_element_of_mapList(){
@@ -90,4 +104,11 @@ public class VersionTest{
 		List<Integer> newlist = CollectionUtils.filter(list,new returnOddNumber());
 		assertEquals((int)newlist.get(0),7);
 	}
+	// public void return_list_of_odd_numbers(){
+	// 	List<Integer> list = new ArrayList<Integer>();
+	// 	list.add(4);
+	// 	list.add(7);
+	// 	List<Integer> newlist = CollectionUtils.filter(list,new returnOddNumber());
+	// 	assertEquals((int)newlist.get(0),7);
+	// }
 }
