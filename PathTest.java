@@ -27,4 +27,11 @@ public class PathTest{
 		Boolean path = DirectPath.findDirectPath(src,des);
 		assertEquals(path,false);
 	}
+	@Test
+	public void find_path_btwn_Seoul_to_Beijing_is_true(){
+		String src = "Seoul";
+		String des = "Beijing";
+		Boolean path = AnyPath.findPaths(src,des);
+		assertEquals(path,true);
+	}
 }
