@@ -18,8 +18,8 @@ class Destination{
 	}
 	public String toString(){
 		return city;
-}
 	}
+}
 
 class PathDatabase{
 	public static Map<Source, Destination> createDataBase(){
@@ -34,7 +34,7 @@ class PathDatabase{
 }
 
 class CheckDatabase{
-	public static Boolean checkcity(String src,String des){
+	public static Integer checkcity(String src,String des){
 		Map<Source, Destination> db = PathDatabase.createDataBase();
 		int keyCount = 0, valueCount=0;
 		for(Source city: db.keySet()) {
@@ -49,10 +49,11 @@ class CheckDatabase{
 			if(city.toString().equals(des))
 				valueCount++;
 		}
-		if(keyCount==0 || valueCount==0){
-			return true;
-		}
-		return false;
+		if(keyCount==0 )
+			return -1;
+		if(valueCount==0)
+			return 0;
+		return keyCount;
 	} 
 }
 
@@ -72,23 +73,13 @@ class IsPath{
 	    Boolean directPath = DirectPath.findDirectPath(src,des);
 		if(directPath) return true;
 		Map<Source, Destination> db = PathDatabase.createDataBase();
-		Boolean checkCities = CheckDatabase.checkcity(src,des);		
-		if(checkCities){
-			throw new Exception("No city Named : "+ src + " or "+des +" in database.");
+		Integer checkCities = CheckDatabase.checkcity(src,des);		
+		if(checkCities<=0){
+			if(checkCities==-1)
+				throw new Exception("No city Named : "+ src +" in database.");
+			if(checkCities==0)
+				throw new Exception("No city Named : "+des +" in database.");
 		}
 		return false;
 	}
 }
-
-public class Paths{
-	public static void main(String[] args)throws Exception{
-		String src = args[0];
-		String des = args[1];
-		try{
-			Boolean path = IsPath.findPaths(src,des);
-			System.out.println(path);
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-		}
-	}
-};
