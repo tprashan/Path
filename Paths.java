@@ -34,26 +34,15 @@ class PathDatabase{
 }
 
 class CheckDatabase{
-	public static Integer checkcity(String src,String des){
+	public static Boolean checkcity(String src){
 		Map<Source, Destination> db = PathDatabase.createDataBase();
-		int keyCount = 0, valueCount=0;
+		Boolean result = false;
+
 		for(Source city: db.keySet()) {
-			if(city.toString().equals(src))
-				keyCount++;
-			if(city.toString().equals(des))
-				valueCount++;
+			if(city.toString().equals(src)) result=true;
+			if(db.get(city).toString().equals(src)) result=true;
 		}
-		for(Destination city: db.values()) {
-			if(city.toString().equals(src))
-				keyCount++;
-			if(city.toString().equals(des))
-				valueCount++;
-		}
-		if(keyCount==0 )
-			return -1;
-		if(valueCount==0)
-			return 0;
-		return keyCount;
+		return result;
 	} 
 }
 
@@ -68,18 +57,33 @@ class DirectPath{
 	}
 }
 
+// class AnyPathBtwnTwoCities{
+// 	public static boolean findAnyPath(String src,String des){
+// 		Map<Source, Destination> db = PathDatabase.createDataBase();
+		
+// 	}
+// }
+
 class IsPath{
 	public static Boolean findPaths(String src,String des)throws Exception{
 	    Boolean directPath = DirectPath.findDirectPath(src,des);
-		if(directPath) return true;
-		Map<Source, Destination> db = PathDatabase.createDataBase();
-		Integer checkCities = CheckDatabase.checkcity(src,des);		
-		if(checkCities<=0){
-			if(checkCities==-1)
-				throw new Exception("No city Named : "+ src +" in database.");
-			if(checkCities==0)
-				throw new Exception("No city Named : "+des +" in database.");
-		}
+		if(directPath) return true;	
+
+		if(!CheckDatabase.checkcity(src))
+			throw new Exception("No city Named : "+ src +" in database.");
+		if(!CheckDatabase.checkcity(des))
+			throw new Exception("No city Named : "+des +" in database.");
 		return false;
 	}
 }
+
+public class Paths{
+	public static void main(String[] args)throws Exception{
+		try{
+			Boolean path = IsPath.findPaths(args[0],args[1]);
+			System.out.println(path);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+};
