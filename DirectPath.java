@@ -14,15 +14,12 @@ class Database{
 	}
 }
 
-class CheckDatabase{
-	public static Boolean checkCityInDatabase(String src){
+class SearchInDatabase{
+	public static Boolean isCityPresentInDatabase(String src){
 		Map<String,List<String>> db =  Database.createDataBase();
-		Boolean result = false;
-		for(String city: db.keySet()) {
-			if(city.equals(src)) result=true;
-			if(db.get(city).contains(src)) result=true;
-		}
-		return result;
+		for(String city: db.keySet())
+			if(city.equals(src) || db.get(city).contains(src)) return true;
+		return false;
 	} 
 }
 
@@ -40,17 +37,16 @@ class DirectPath{
 		return false;
 	}
 
-	public static Boolean findDestination(String src,String des){
+	public static Boolean doesPathExists(String src,String des){
 		for(String city: db.get(src)) {
 			if((db.keySet().contains(city)) && db.get(city).contains(des)){
 				queue.add(city);queue.add(des);
 				return true;
 			}
 		}
-		for(String city: db.get(src)) {
-			if(!queue.contains(city))
-				return findPath(city,des);
-		}
+		for(String city: db.get(src))
+			if(!queue.contains(city)) return findPath(city,des);
+
 		return false;
 	}
 
@@ -58,7 +54,7 @@ class DirectPath{
 		if(src.equals(des)) return true;
 		queue.add(src);
 		if((db.keySet().contains(src)))
-			return findDestination(src,des);
+			return doesPathExists(src,des);
 		return false;
 	}
 }
