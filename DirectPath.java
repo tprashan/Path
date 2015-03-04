@@ -4,12 +4,11 @@ class Database{
 	public static Map<String,List<String>> createDataBase(){
 		Map<String,List<String>> map = new HashMap<String,List<String>>();
 		map.put("Bangalore", new ArrayList<String>(Arrays.asList("Singapore")));
-		map.put("Singapore", new ArrayList<String>(Arrays.asList("Seoul", "Bangalore","Dubai")));
-		map.put("Seoul", new ArrayList<String>(Arrays.asList("Beijing", "Singapore")));
-		map.put("Beijing", new ArrayList<String>(Arrays.asList("Tokyo", "Seoul")));
-		map.put("Tokyo", new ArrayList<String>(Arrays.asList("Beijing")));
+		map.put("Singapore", new ArrayList<String>(Arrays.asList("Seoul","Dubai")));
+		map.put("Seoul", new ArrayList<String>(Arrays.asList("Beijing")));
+		map.put("Beijing", new ArrayList<String>(Arrays.asList("Tokyo")));
 		map.put("Dubai", new ArrayList<String>(Arrays.asList("Lucknow")));
-		map.put("Delhi", new ArrayList<String>(Arrays.asList("Kanpur")));
+		map.put("Lucknow", new ArrayList<String>(Arrays.asList("Kanpur")));
 		return map;
 	}
 }
@@ -46,15 +45,20 @@ class DirectPath{
 		}
 		for(String city: db.get(src))
 			if(!queue.contains(city)) return findPath(city,des);
-
 		return false;
 	}
 
 	public static Boolean findPath(String src,String des){
 		if(src.equals(des)) return true;
-		queue.add(src);
-		if((db.keySet().contains(src)))
+
+		if((db.keySet().contains(src))){
+			queue.add(src);
 			return doesPathExists(src,des);
+		}
+		if(!(db.keySet().contains(src))){
+			queue.add(des);
+			return doesPathExists(des,src);
+		}
 		return false;
 	}
 }

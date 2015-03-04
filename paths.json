@@ -1,0 +1,9 @@
+{
+	"Bangalore" : ["Singapore"],
+	"Singapore" : ["Seoul", "Bangalore",,"Dubai"],
+	"Seoul" : ["Beijing", "Singapore"],
+	"Beijing" : ["Tokyo", "Seoul"],
+	"Tokyo" : ["Beijing"],
+	"Dubai" : ["Lucknow"],
+	"Delhi" : ["Kanpur"]
+}
