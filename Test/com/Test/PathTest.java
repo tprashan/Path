@@ -3,8 +3,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-
-
 public class PathTest{
 	@Test
 	public void find_path_btwn_Singapore_to_dubai_is_true()throws Exception{
@@ -26,12 +24,5 @@ public class PathTest{
 		String des = "Tokyo";
 		Boolean path = DirectPath.findDirectPath(src,des);
 		assertEquals(path,false);
-	}
-	@Test
-	public void find_path_btwn_Seoul_to_Beijing_is_true()throws Exception{
-		String src = "Seoul";
-		String des = "Beijing";
-		Boolean path = IsPath.findPaths(src,des);
-		assertEquals(path,true);
 	}
 }

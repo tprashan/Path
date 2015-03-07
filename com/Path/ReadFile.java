@@ -1,5 +1,26 @@
-// import java.io.*;
-// import java.util.*;
+import java.io.*;
+import java.util.*;
+
+public class ReadFile{
+	public static String read(String fileName){
+		File file = new File(fileName);
+		int len = (int)file.length();
+		char ch[] = new char[len];
+		try{
+			FileInputStream fstream = new FileInputStream(fileName);
+			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+			br.read(ch,0,len);
+		}catch(IOException e){
+			System.out.println("error is>>"+e);
+		}
+		String fileData = new String(ch);
+		return fileData;
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+}
 
 // public class ReadFile{
 // 	public static String read(String fileName){
@@ -22,20 +43,3 @@
 
 
 
-
-// // public class ReadFile{
-// // 	public static String read(String fileName){
-// // 		File file = new File(fileName);
-// // 		int len = (int)file.length();
-// // 		char ch[] = new char[len];
-// // 		try{
-// // 			FileInputStream fstream = new FileInputStream(fileName);
-// // 			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-// // 			br.read(ch,0,len);
-// // 		}catch(IOException e){
-// // 			System.out.println("error is>>"+e);
-// // 		}
-// // 		String fileData = new String(ch);
-// // 		return fileData;
-// // 	}
-// // }

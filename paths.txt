@@ -1,0 +1,4 @@
+Bangalore,Singapore
+Singapore,Seoul
+Seoul,Beijing
+Beijing,Tokyo
