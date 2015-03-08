@@ -15,12 +15,12 @@ class DirectPath{
 	public static Map<String,List<String>> db =  Database.createDataBase();
 
 	public static String findKeyFromMapValue(String src){
-		String a="a";
+		String dummyString="dummyString";
 		for (String keyCity : db.keySet()) {
 			if(db.get(keyCity).contains(src))
 				return keyCity;
 		}
-		return a;
+		return dummyString;
 	}
 
 	public static Boolean findDirectPath(String src,String des){
@@ -46,18 +46,14 @@ class DirectPath{
 
 	public static Boolean findReversePath(String src,String des){
 		String key = findKeyFromMapValue(src);
-		if(key.equals(des)) {
-			queue.add(des);return true;
-		}
-		if(db.get(key)!=null && db.get(key).contains(des)){
-			queue.add(key);queue.add(des);return true;	
-		} 
+		if(key.equals(des)) { queue.add(des);return true;}
+
+		if(db.get(key)!=null && db.get(key).contains(des)){ queue.add(key);queue.add(des);return true;}
+
 		if(db.keySet().contains(key)){
-			if(queue.size()>0 && queue.element().equals(src)){
-				queue.clear();queue.add(src);
-			}
-			if(findDirectPath(key,des)) return true;
-			if(findPath(key,des)) return true;
+			if(queue.size()>0 && queue.element().equals(src)){ queue.clear();queue.add(src);}
+			
+			if(findDirectPath(key,des) || findPath(key,des)) return true;
 			return findReversePath(key,des);
 		}
 		return false;
