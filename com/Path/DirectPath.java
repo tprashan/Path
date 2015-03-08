@@ -56,7 +56,7 @@ class DirectPath{
 			if(findDirectPath(key,des) || findPath(key,des)) return true;
 			return findReversePath(key,des);
 		}
-		return false;
+		return false
 	}
 
 	public static Boolean findPath(String src,String des){

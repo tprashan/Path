@@ -5,7 +5,7 @@ class Routes{
 
 	public static String giveKeyFromMapValue(String fileName,String src){
     	Map<String,List<String>> db =  ReadFileInput.createDataBaseFromFileInput(fileName);
-		String dummyString="dummyString";
+		String dummyString="dummy@String";
 		for (String keyCity : db.keySet()) {
 			if(db.get(keyCity).contains(src))
 				return keyCity;
