@@ -19,7 +19,7 @@ public class Paths{
 		if(!SearchInDatabase.isCityPresentInDatabase(des))
 			throw new Exception("No city Named : "+des +" in database.");
 		if(directPath)
-			throw new Exception("Full Path is: "+PrintPath.printPath(src,des));//return true;
+			throw new Exception("Full Path is: "+PrintPath.printPath(src,des));
 	    Boolean fullPath = DirectPath.findPath(src,des);
 	    if(fullPath)
 	    	throw new Exception("Full Path is: "+PrintPath.printPath(src,des)); 

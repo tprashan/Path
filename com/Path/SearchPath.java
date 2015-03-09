@@ -1,11 +1,12 @@
 import java.util.*;
+
 class PrintRoutes{
 	public static String printRoutes(String cfile,String src,String des){
 		String path = "";
 		if(!("Dummy@File".equals(cfile))){
 			Map<String,List<String>> db =  ReadFileInput.createDataBaseFromFileInput(cfile);
 			for(String q : Routes.queue)
-			  		path+=q.toString()+db.get(q)+" -> ";
+			  		path+=q.toString()+db.get(q)+"->";
 		}
 		else
 			path= String.join("->",Routes.queue);
@@ -20,11 +21,13 @@ class SearchPath{
 		if(!SearchInInputDb.isCityPresentInDB(file,des))
 			throw new Exception("No city Named : "+des +" in database.");
 		Boolean directRoute = Routes.isDirectRoutes(file,src,des);
-		if(directRoute)
-			throw new Exception("Full Path is: "+PrintRoutes.printRoutes(cfile,src,des));//return true;
+		if(directRoute){
+			throw new Exception("Full Path is: "+PrintRoutes.printRoutes(cfile,src,des)+"\nTotal Cost: "+
+				TotalCost.findCost(file));}
 	    Boolean wholeRoute = Routes.isRoute(file,src,des);
-	    if(wholeRoute)
-	    	throw new Exception("Full Path is: "+PrintRoutes.printRoutes(cfile,src,des)); 
+	    if(wholeRoute){
+	    	throw new Exception("Full Path is: "+PrintRoutes.printRoutes(cfile,src,des)+"\nTotal Cost: "+
+	    		TotalCost.findCost(file));} 
 		return wholeRoute;
 	}
 }
