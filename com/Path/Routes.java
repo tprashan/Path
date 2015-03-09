@@ -22,4 +22,47 @@ class Routes{
  		}
 		return false;
 	}
+
+	public static Boolean isPathExists(String fileName,String src,String des){
+		Map<String,List<String>> db =  ReadFileInput.createDataBaseFromFileInput(fileName);
+		for(String city: db.get(src)) {
+			if((db.keySet().contains(city)) && db.get(city).contains(des)){
+				queue.add(city);queue.add(des);
+				return true;
+			}
+		}
+		for(String city: db.get(src))
+			if(!queue.contains(city)) return isRoute(fileName,city,des);
+		return false;
+	}
+
+	public static Boolean findReverseRoutes(String fileName,String src,String des){
+		Map<String,List<String>> db =  ReadFileInput.createDataBaseFromFileInput(fileName);
+		String key = giveKeyFromMapValue(fileName,src);
+		if(key.equals(des)) { queue.add(des);return true;}
+
+		if(db.get(key)!=null && db.get(key).contains(des)){ queue.add(key);queue.add(des);return true;}
+
+		if(db.keySet().contains(key)){
+			if(queue.size()>0 && queue.element().equals(src)){ queue.clear();queue.add(src);}
+			
+			if(isDirectRoutes(fileName,key,des) || isRoute(fileName,key,des)) return true;
+			return findReverseRoutes(fileName,key,des);
+		}
+		return false;
+	}
+
+	public static Boolean isRoute(String fileName,String src,String des){
+		Map<String,List<String>> db =  ReadFileInput.createDataBaseFromFileInput(fileName);
+		if(src.equals(des)) return true;
+		if(db.keySet().contains(src)){
+			queue.add(src);
+			return isPathExists(fileName,src,des);
+		}
+		if(!(db.keySet().contains(src))){
+			queue.add(src);
+			return findReverseRoutes(fileName,src,des);
+		}
+		return false;
+	}
 }
