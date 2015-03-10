@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Routes{
+class AllRoutes{
 	public static Queue<String> queue = new LinkedList<String>();
 
 	public static String giveKeyFromMapValue(String fileName,String src){
@@ -45,8 +45,7 @@ class Routes{
 
 		if(db.keySet().contains(key)){
 			if(queue.size()>0 && queue.element().equals(src)){ queue.clear();queue.add(src);}
-			if(queue.size()>0 && queue.element().equals(key)){ queue.clear();queue.add(src);}
-
+			
 			if(isDirectRoutes(fileName,key,des) || isRoute(fileName,key,des)) return true;
 			return findReverseRoutes(fileName,key,des);
 		}

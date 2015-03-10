@@ -1,6 +1,7 @@
 class PrintPath{
 	public static String printPath(String src,String des){
 		String path= "";
+		DirectPath.removeinvalidPath();
 		if(!DirectPath.queue.element().equals(des))
 			path = String.join("->",DirectPath.queue);
 		else{

@@ -7,6 +7,8 @@ class Database{
 		map.put("Singapore", new ArrayList<String>(Arrays.asList("Seoul","Dubai")));
 		map.put("Seoul", new ArrayList<String>(Arrays.asList("Beijing")));
 		map.put("Beijing", new ArrayList<String>(Arrays.asList("Tokyo")));
+		map.put("Dubai", new ArrayList<String>(Arrays.asList("Lucknow")));
+		map.put("Lucknow", new ArrayList<String>(Arrays.asList("Ci")));
 		return map;
 	}
 }
