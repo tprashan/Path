@@ -66,4 +66,23 @@ class Routes{
 		}
 		return false;
 	}
+
+    public static void removeInvalidPath(){
+        LinkedList<String>list =((LinkedList<String>)queue);
+        Queue<String> dltQueue = new LinkedList<String>();
+        for(String city:list){
+            int firstIndex =list.indexOf(city);
+            int lastIndex =list.lastIndexOf(city);
+            if(firstIndex!=lastIndex){
+                for(int i=firstIndex;i<lastIndex;i++){
+                    dltQueue.add(list.get(i));
+                }
+                for (String rmcity:dltQueue ) {
+                    queue.remove(rmcity);
+                }
+                break;
+            }
+        }
+    }
+
 }
