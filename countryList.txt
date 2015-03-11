@@ -1,6 +1,0 @@
-Bangalore,India
-Tokyo,Japan
-Singapore,Singapore
-Seoul,South Korea
-Dubai,UAE
-Beijing,China
